@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "rootDir": "../lib/plan",
+    "outDir": ".build",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "types": []
+  },
+  "files": [
+    "../lib/plan/categories.ts",
+    "../lib/plan/calculations.ts",
+    "../lib/plan/guides.ts",
+    "../lib/plan/tasks.ts",
+    "../lib/plan/sanitise.ts",
+    "../lib/plan/reminders.ts",
+    "../lib/plan/types.ts"
+  ]
+}

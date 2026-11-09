@@ -2,6 +2,9 @@ import type React from "react";
 import Header from "@/components/Header";
 import { supabaseAdmin } from "@/lib/supabase";
 import { notFound } from "next/navigation";
+import PlanWorkspace from "@/components/plan/PlanWorkspace";
+import { parseAnswers } from "@/lib/plan/categories";
+import { loadPlanRow, toPlanState } from "@/lib/plan/store";
 import {
   CheckCircle2,
   FileText,
@@ -305,6 +308,12 @@ export default async function ReportPage({
 
   if (!data) notFound();
 
+  // New paid-plan features (Action Centre, personalisation, tracker,
+  // reminders). If this data can't be loaded the original report still shows.
+  const answers = parseAnswers(data.answers);
+  const { row: planRow, available: planAvailable } = await loadPlanRow(id);
+  const initialPlan = toPlanState(planRow, planAvailable, data.email || null);
+
   const reportText = cleanOldJson(data.report);
   const savings = getSavings(reportText);
   const savingsNumber = getSavingsNumber(savings);
@@ -382,7 +391,21 @@ export default async function ReportPage({
             </div>
           </section>
 
-          <section className="reportDocumentLayout">
+          <nav className="sspQuickNav" aria-label="Your plan">
+            <a href="#action-centre">Action Centre</a>
+            <a href="#personalise">Personalise</a>
+            <a href="#tracker">Tracker</a>
+            <a href="#reminders">Reminders</a>
+            <a href="#full-report">Full report</a>
+          </nav>
+
+          <PlanWorkspace
+            reportId={id}
+            answers={answers}
+            initialPlan={initialPlan}
+          />
+
+          <section className="reportDocumentLayout" id="full-report">
             <aside className="reportSummaryCard">
               <span className="pill">Full Report</span>
 

@@ -13,7 +13,8 @@ import {
   trackMetaStandard,
 } from "@/lib/meta";
 import ScrollReveal from "@/components/ScrollReveal";
-import { trackEvent } from "@/lib/gtag";
+import { trackEvent, trackEventOnce } from "@/lib/gtag";
+import UpgradeValue, { PAID_ITEMS } from "@/components/upgrade/UpgradeValue";
 
 import {
   CheckCircle,
@@ -445,6 +446,24 @@ useEffect(() => {
   }
 }, [loading]);
 
+  // Phase 5 funnel: the paid offer box was actually seen (once per session).
+  useEffect(() => {
+    if (loading) return;
+    const el = document.getElementById("unlock-full-report");
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          trackEventOnce("paid_offer_view", { value: 39, currency: "AUD" });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [loading]);
+
   const leaks = useMemo(
     () => buildLeaks(answers),
     [answers]
@@ -489,6 +508,12 @@ useEffect(() => {
     }
 
     if (busy) return;
+
+    trackEventOnce("upgrade_click", {
+      location: "checkout_button",
+      value: 39,
+      currency: "AUD",
+    });
 
     try {
       setBusy(true);
@@ -921,7 +946,7 @@ alert(
   className="btn white"
   onClick={() => {
     // GA4
-    trackEvent("upgrade_click", {
+    trackEventOnce("upgrade_click", {
       location: "results_hero",
       value: 39,
       currency: "AUD",
@@ -1074,60 +1099,19 @@ alert(
             </span>
 
             <h2>
-              Get your personalised
-              action plan
+              Get your personal
+              savings plan
             </h2>
 
-            <p className="list-item">
-              <BsCheckCircleFill
-                size={15}
-                color="#059625"
-              />
-
-              {" "}
-              See all your money leaks
-            </p>
-
-            <p className="list-item">
-              <BsCheckCircleFill
-                size={15}
-                color="#059625"
-              />
-
-              {" "}
-              Get your estimated
-              savings
-            </p>
-
-            <p className="list-item">
-              <BsCheckCircleFill
-                size={15}
-                color="#059625"
-              />
-
-              {" "}
-              Step-by-step action plan
-            </p>
-
-            <p className="list-item">
-              <BsCheckCircleFill
-                size={15}
-                color="#059625"
-              />
-
-              {" "}
-              Scripts you can use
-            </p>
-
-            <p className="list-item">
-              <BsCheckCircleFill
-                size={15}
-                color="#059625"
-              />
-
-              {" "}
-              Save more, stress less
-            </p>
+            {PAID_ITEMS.map((item) => (
+              <p className="list-item" key={item}>
+                <BsCheckCircleFill
+                  size={15}
+                  color="#059625"
+                />{" "}
+                {item}
+              </p>
+            ))}
 
             <div className="card unlock-card">
               <h5>
@@ -1241,9 +1225,13 @@ alert(
               <span>
                 {busy
                   ? "Redirecting..."
-                  : "Unlock My Full Report — A$39"}
+                  : "Unlock My Personal Savings Plan — A$39"}
               </span>
             </button>
+
+            <p className="sspOneTime">
+              One-time payment. No subscription.
+            </p>
 
             <p className="mini">
               Estimates are based on
@@ -1256,6 +1244,8 @@ alert(
             </p>
           </aside>
         </section>
+
+        <UpgradeValue answers={answers} />
 
         <ScrollReveal />
       </main>

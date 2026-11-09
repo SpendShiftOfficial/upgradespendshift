@@ -4841,3 +4841,495 @@ line-height: 1.05 !important;
 text-align: left !important;
 }
 }
+
+/* =====================================================================
+   SpendShift upgrade: paid plan (Phases 1–4) + upgrade value (Phase 5)
+   All classes are prefixed "ssp" so existing styles are untouched.
+   ===================================================================== */
+
+.sspQuickNav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 4px;
+  margin: 8px 0 4px;
+  background: #fff;
+  scrollbar-width: none;
+}
+.sspQuickNav::-webkit-scrollbar { display: none; }
+.sspQuickNav a {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--light);
+}
+.sspQuickNav a:hover { border-color: var(--green); color: var(--green); }
+
+.sspWorkspace { display: grid; gap: 24px; margin: 16px 0 40px; }
+.sspSection {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 28px;
+  scroll-margin-top: 70px;
+}
+.sspSection h2 { font-size: 30px; line-height: 1.2; margin: 10px 0 8px; color: var(--text); }
+.sspSection h3 { color: var(--text); }
+.sspEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--light);
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sspLead { font-size: 17px; color: var(--muted); margin: 0 0 20px; }
+.sspMuted { color: var(--muted); font-size: 14px; line-height: 1.55; }
+.sspSmallPrint { font-size: 13px; margin-top: 10px; }
+.sspCenter { text-align: center; }
+.sspError { color: #b42318; font-size: 14px; margin: 8px 0 0; display: block; }
+
+.sspBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1.2;
+}
+.sspBtn:disabled { opacity: 0.55; cursor: not-allowed; }
+.sspBtnGhost { background: #fff; color: var(--green); }
+.sspBtnOutline { background: var(--light); color: var(--green); }
+.sspLinkBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  padding: 8px 0;
+  color: var(--green);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.sspDanger { color: #b42318; }
+.sspIconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  color: var(--text);
+}
+.sspActions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; }
+
+.sspNotice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 16px;
+  background: #fff8e6;
+  border: 1px solid #f5d98b;
+  color: var(--text);
+}
+.sspNotice p { margin: 0; }
+.sspToast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 60;
+  background: #16241b;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: calc(100% - 32px);
+}
+
+/* ---- Status chips ---- */
+.sspStatus {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #f1f2f4;
+  color: #4b5563;
+}
+.sspStatus-in_progress { background: #eef4ff; color: #1d4ed8; }
+.sspStatus-completed_no_saving { background: #f3f4f6; color: #374151; }
+.sspStatus-completed_saving { background: #e7f7ec; color: #04711c; }
+
+/* ---- Action Centre ---- */
+.sspCards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.sspCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #f7fcf8 0%, #fff 60%);
+}
+.sspCard h3 { font-size: 20px; line-height: 1.25; margin: 0; }
+.sspCardTop { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sspTaskNo { font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); }
+.sspQuick {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #92400e;
+  background: #fef3c7;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.sspCardRow { display: flex; gap: 10px; align-items: flex-start; }
+.sspCardRow svg { flex: 0 0 auto; margin-top: 2px; }
+.sspCardRow b { font-size: 14px; color: var(--text); }
+.sspCardRow p { margin: 2px 0 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.sspEstimate { border-radius: 12px; background: var(--light); padding: 10px 12px; font-size: 14px; }
+.sspEstimate summary { display: flex; gap: 8px; align-items: center; cursor: pointer; list-style: none; }
+.sspEstimate summary::-webkit-details-marker { display: none; }
+.sspEstimate summary span::after { content: " · How?"; color: var(--green); font-weight: 600; font-size: 13px; }
+.sspEstimate[open] summary span::after { content: ""; }
+.sspEstimate p { margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
+.sspCardBtns { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+.sspCardBtns .sspBtn { width: 100%; }
+.sspEmpty { display: flex; gap: 12px; align-items: center; padding: 18px; border-radius: 16px; background: var(--light); }
+.sspEmpty p { margin: 0; }
+.sspJump { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; color: var(--green); font-weight: 600; font-size: 14px; }
+
+/* ---- Personalisation ---- */
+.sspTotals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sspTotals > div { padding: 16px; border-radius: 16px; border: 1px solid var(--line); display: grid; gap: 4px; }
+.sspTotals > div.on { border-color: var(--green); background: var(--light); }
+.sspTotals span { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.sspTotals b { font-size: 26px; color: var(--text); }
+.sspTotals small { color: var(--muted); font-size: 13px; }
+.sspAccordion { display: grid; gap: 10px; margin-top: 18px; }
+.sspAccItem { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.sspAccItem.open { border-color: var(--green); }
+.sspAccHead {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #fff;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+.sspAccHead span { display: grid; gap: 2px; }
+.sspAccHead b { font-size: 16px; color: var(--text); }
+.sspAccHead small { color: var(--muted); font-size: 13px; }
+.sspAccItem.open .sspAccHead svg { transform: rotate(180deg); }
+.sspAccBody { padding: 4px 16px 16px; display: grid; gap: 14px; }
+.sspExplain { margin: 0; padding: 12px; border-radius: 12px; background: var(--light); font-size: 14px; line-height: 1.5; }
+.sspField { display: grid; gap: 6px; }
+.sspFieldLabel { font-weight: 600; font-size: 15px; color: var(--text); }
+.sspField small { color: var(--muted); font-size: 13px; }
+.sspField select,
+.sspField input[type="month"],
+.sspSubRow input,
+.sspSubRow select {
+  min-height: 46px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #d5ddd7;
+  font-size: 16px;
+  background: #fff;
+  color: var(--text);
+  width: 100%;
+}
+.sspMoney {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d5ddd7;
+  border-radius: 12px;
+  background: #fff;
+  min-height: 46px;
+  overflow: hidden;
+}
+.sspMoney > span { padding: 0 4px 0 12px; color: var(--muted); font-weight: 600; }
+.sspMoney input { flex: 1; min-width: 0; border: 0 !important; outline: none; padding: 10px 8px; font-size: 16px; background: transparent; min-height: 44px; }
+.sspMoney em { font-style: normal; color: var(--muted); font-size: 13px; padding-right: 12px; white-space: nowrap; }
+.sspMoney:focus-within, .sspField select:focus { border-color: var(--green); outline: 2px solid rgba(5, 150, 37, 0.15); }
+.sspChips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sspChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #d5ddd7;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--text);
+}
+.sspChip.on { background: var(--light); border-color: var(--green); color: var(--green); font-weight: 600; }
+.sspCheck { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text); }
+.sspCheck input { width: 18px; height: 18px; accent-color: var(--green); }
+.sspSubRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr auto auto 40px;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 12px;
+  background: #fafbfa;
+}
+.sspCalcInline { margin: 0; font-size: 14px; color: var(--text); }
+
+/* ---- Tracker ---- */
+.sspStats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.sspStats > div { padding: 16px; border-radius: 16px; background: var(--light); display: grid; gap: 4px; }
+.sspStats > div.wide { grid-column: span 2; }
+.sspStats span { font-size: 13px; color: var(--muted); font-weight: 600; }
+.sspStats b { font-size: 26px; color: var(--text); }
+.sspRecorded { margin-top: 18px; border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+.sspRecorded h3 { margin: 0 0 8px; font-size: 17px; }
+.sspRecordedRow { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+.sspRecordedRow.total { border-bottom: 0; font-weight: 700; color: var(--green); }
+.sspTaskList { display: grid; gap: 10px; margin-top: 18px; }
+.sspTaskRow { border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.sspTaskRow.done { background: #fbfdfb; }
+.sspTaskRowHead { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; }
+.sspTaskRowHead > div:first-child { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.sspTaskRowHead b { font-size: 16px; color: var(--text); }
+.sspRecordedLine { width: 100%; color: var(--green); font-weight: 600; font-size: 13px; }
+.sspTaskRowBtns { display: flex; gap: 8px; flex-wrap: wrap; }
+.sspTaskRowBtns .sspBtn { min-height: 40px; padding: 8px 16px; font-size: 14px; }
+
+/* ---- Outcome form ---- */
+.sspOutcome { display: grid; gap: 12px; margin-top: 12px; }
+.sspOutcomeQ { font-weight: 700; margin: 0; color: var(--text); }
+.sspRadioGroup { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sspRadio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #d5ddd7;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  background: #fff;
+}
+.sspRadio.on { border-color: var(--green); background: var(--light); font-weight: 600; }
+.sspRadio input { accent-color: var(--green); width: 18px; height: 18px; flex: 0 0 auto; }
+.sspSavingForm { display: grid; gap: 12px; padding: 14px; border-radius: 14px; background: #fafbfa; }
+.sspToggle { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.sspToggle button {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d5ddd7;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text);
+}
+.sspToggle button.on { border-color: var(--green); background: var(--light); color: var(--green); font-weight: 700; }
+.sspCalc { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; border-radius: 12px; background: #e7f7ec; }
+.sspCalc div { display: grid; }
+.sspCalc span { font-size: 12px; color: #04711c; font-weight: 600; }
+.sspCalc b { font-size: 22px; color: #04711c; }
+.sspCalc small { grid-column: 1 / -1; color: #375a40; font-size: 12.5px; }
+
+/* ---- Reminders ---- */
+.sspReminders { background: linear-gradient(180deg, #f3fbf5 0%, #fff 70%); }
+.sspOn { display: flex; align-items: center; gap: 8px; color: var(--green); font-weight: 600; }
+
+/* ---- Task guide dialog ---- */
+.sspOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(15, 23, 18, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.sspDialog {
+  width: min(760px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 24px;
+  outline: none;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+.sspDialogHead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 24px 14px;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+.sspDialogHead h2 { margin: 8px 0 4px; font-size: 24px; line-height: 1.2; }
+.sspDialogHead .sspMuted { display: flex; align-items: center; gap: 6px; margin: 0; }
+.sspDialogBody { padding: 8px 24px 28px; }
+.sspGuideBlock { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.sspGuideBlock:last-child { border-bottom: 0; }
+.sspGuideBlock h3 { display: flex; align-items: center; gap: 8px; font-size: 17px; margin: 0 0 8px; }
+.sspGuideBlock > p { margin: 0; line-height: 1.6; color: #374151; }
+.sspList { margin: 0; padding-left: 20px; display: grid; gap: 4px; color: #374151; line-height: 1.5; }
+.sspListSmall { font-size: 14px; margin-top: 8px; }
+.sspSteps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.sspSteps > li { display: flex; gap: 12px; align-items: flex-start; }
+.sspSteps > li > div { flex: 1; min-width: 0; }
+.sspSteps > li b { color: var(--text); }
+.sspSteps > li p { margin: 4px 0 0; color: #4b5563; line-height: 1.55; }
+.sspSteps > li.done b { color: var(--green); }
+.sspStepTick { background: none; border: 0; padding: 0; cursor: pointer; color: #9ca3af; flex: 0 0 auto; min-width: 32px; min-height: 32px; }
+.sspScript { margin-top: 10px; padding: 14px; border-radius: 14px; background: #f5f7ff; border-left: 4px solid #2563eb; }
+.sspScript p { margin: 0 0 10px !important; color: #1f2937 !important; font-style: italic; }
+.sspScript .sspBtn { min-height: 40px; padding: 8px 16px; font-size: 14px; }
+.sspOutside { margin-top: 10px; display: grid; gap: 6px; justify-items: start; }
+.sspOutside small { color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+.sspHelpLinks { display: grid; gap: 12px; }
+
+/* ---- Phase 5: results page ---- */
+.sspOneTime { text-align: center; font-size: 14px; font-weight: 600; color: var(--green); margin: 10px 0 0; }
+.sspUpgrade { margin: 56px 0 24px; display: grid; gap: 20px; }
+.sspUpgradeIntro { text-align: center; max-width: 760px; margin: 0 auto; }
+.sspUpgradeIntro h2 { font-size: 38px; line-height: 1.2; margin: 0 0 12px; }
+.sspUpgradeIntro h2 span { color: var(--green); }
+.sspUpgradeIntro p { font-size: 18px; color: var(--muted); margin: 0; }
+.sspCompare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sspCompareCol { border: 1px solid var(--line); border-radius: 24px; padding: 24px; background: #fff; display: grid; gap: 10px; align-content: start; }
+.sspCompareCol.paid { border: 2px solid var(--green); background: var(--light); }
+.sspCompareCol h3 { margin: 0 0 6px; font-size: 21px; line-height: 1.3; }
+.sspCompareTag { font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); }
+.sspCompareItem { display: flex; gap: 8px; align-items: center; margin: 0; font-size: 15px; color: #374151; }
+.sspCompareItem svg { flex: 0 0 auto; }
+.sspCompareDone { display: flex; gap: 6px; align-items: center; margin: 6px 0 0; font-size: 13px; color: var(--muted); }
+.sspTagline { text-align: center; font-size: 18px; font-weight: 700; color: var(--text); margin: 4px 0 0; }
+.sspPreviewTitle { text-align: center; font-size: 26px; margin: 16px 0 0; }
+.sspPreviews { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.sspPreview { border: 1px solid var(--line); border-radius: 20px; padding: 18px; background: #fff; display: grid; gap: 10px; align-content: start; }
+.sspPreviewLabel { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--green); }
+.sspPreviewHead { font-size: 16px; line-height: 1.3; color: var(--text); }
+.sspMiniCard { border: 1px solid var(--line); border-radius: 12px; padding: 10px; display: grid; gap: 2px; background: #fafdfb; }
+.sspMiniCard small { font-size: 11px; font-weight: 800; color: var(--green); text-transform: uppercase; }
+.sspMiniCard b { font-size: 14px; }
+.sspMiniCard span { display: inline-flex; gap: 4px; align-items: center; font-size: 12px; color: var(--muted); }
+.sspMiniSteps { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; }
+.sspMiniSteps li { display: flex; gap: 8px; align-items: flex-start; }
+.sspMiniSteps svg { flex: 0 0 auto; margin-top: 2px; color: #9ca3af; }
+.sspMiniScript { font-size: 13px; font-style: italic; padding: 10px; border-radius: 10px; background: #f5f7ff; border-left: 3px solid #2563eb; }
+.sspMiniRow { display: flex; justify-content: space-between; gap: 8px; padding: 10px; border-radius: 12px; background: #e7f7ec; font-size: 14px; }
+.sspMiniRow b { color: #04711c; white-space: nowrap; }
+.sspExampleTag { font-size: 12px; font-weight: 600; color: #92400e; background: #fef3c7; padding: 4px 8px; border-radius: 8px; justify-self: start; }
+.sspTrust { border: 1px solid var(--line); border-radius: 24px; padding: 22px; background: #fff; }
+.sspTrust h3 { display: flex; gap: 8px; align-items: center; margin: 0 0 12px; font-size: 20px; }
+.sspTrustGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 20px; }
+.sspTrustGrid p { display: flex; gap: 10px; align-items: flex-start; margin: 0; font-size: 14px; line-height: 1.5; color: #374151; }
+.sspTrustGrid svg { flex: 0 0 auto; color: var(--green); margin-top: 2px; }
+.sspTrustGrid a { color: var(--green); text-decoration: underline; }
+.sspReviews h3 { text-align: center; }
+.sspReviewGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.sspReviewGrid figure { margin: 0; padding: 18px; border-radius: 18px; border: 1px solid var(--line); background: #fff; }
+.sspReviewGrid blockquote { margin: 0 0 8px; font-size: 15px; line-height: 1.5; }
+.sspReviewGrid figcaption { font-size: 13px; color: var(--muted); font-weight: 600; }
+.sspUpgradeCta { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.sspUpgradeCta .btn { display: inline-flex; justify-content: center; text-align: center; font-size: 18px; padding: 14px 32px; }
+.sspUpgradeCta small { color: var(--muted); font-size: 14px; }
+
+.sspUnsub { text-align: center; display: grid; justify-items: center; gap: 12px; margin-top: 40px; }
+
+/* ---- Tablet ---- */
+@media (max-width: 1024px) {
+  .sspCards { grid-template-columns: 1fr; }
+  .sspPreviews { grid-template-columns: 1fr 1fr; }
+  .sspTrustGrid { grid-template-columns: 1fr 1fr; }
+  .sspSubRow { grid-template-columns: 1fr 1fr; }
+  .sspSubRow .sspIconBtn { justify-self: end; }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 640px) {
+  .sspSection { padding: 20px 16px; border-radius: 18px; }
+  .sspSection h2 { font-size: 24px; }
+  .sspLead { font-size: 16px; }
+  .sspTotals { grid-template-columns: 1fr; }
+  .sspStats { grid-template-columns: 1fr 1fr; }
+  .sspStats > div.wide { grid-column: 1 / -1; }
+  .sspStats b, .sspTotals b { font-size: 22px; }
+  .sspRadioGroup, .sspToggle { grid-template-columns: 1fr; }
+  .sspTaskRowBtns { width: 100%; }
+  .sspTaskRowBtns .sspBtn { flex: 1; }
+  .sspActions .sspBtn { width: 100%; }
+  .sspOverlay { padding: 0; align-items: stretch; }
+  .sspDialog { max-height: 100vh; height: 100%; border-radius: 0; }
+  .sspDialogHead { padding: 16px; }
+  .sspDialogHead h2 { font-size: 21px; }
+  .sspDialogBody { padding: 4px 16px 32px; }
+  .sspSubRow { grid-template-columns: 1fr 1fr; }
+  .sspSubRow > input:first-child { grid-column: 1 / -1; }
+  .sspUpgrade { margin-top: 36px; }
+  .sspUpgradeIntro h2 { font-size: 27px; }
+  .sspUpgradeIntro p { font-size: 16px; }
+  .sspCompare, .sspPreviews, .sspTrustGrid { grid-template-columns: 1fr; }
+  .sspCompareCol { padding: 18px; }
+  .sspUpgradeCta .btn { width: 100%; font-size: 16px; padding: 14px 18px; }
+
+  /* The site's mobile rule sets every h1–h4 to 27px !important.
+     These more specific rules keep the new components readable. */
+  .sspSection h2,
+  .sspUpgradeIntro h2 { font-size: 24px !important; line-height: 1.25 !important; }
+  .sspDialogHead h2 { font-size: 21px !important; line-height: 1.25 !important; }
+  .sspCard h3 { font-size: 20px !important; line-height: 1.3 !important; }
+  .sspGuideBlock h3,
+  .sspRecorded h3 { font-size: 17px !important; line-height: 1.3 !important; }
+  .sspCompareCol h3 { font-size: 19px !important; line-height: 1.3 !important; }
+  .sspPreviewTitle,
+  .sspTrust h3,
+  .sspReviews h3 { font-size: 21px !important; line-height: 1.3 !important; }
+  .sspUnsub h1 { font-size: 24px !important; line-height: 1.3 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sspAccItem.open .sspAccHead svg { transform: none; }
+}
